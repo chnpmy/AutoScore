@@ -16,6 +16,7 @@ namespace AutoScore
     {
         private static int _answer = -1;
         private static bool _hasBeenInited = false;
+        private static int _score = 0;
 
         public MyForm()
         {
@@ -92,18 +93,28 @@ namespace AutoScore
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            StartGame();
+            label5_Click(sender, e);
         }
 
         private void StartGame()
         {
+            _score = 0;
+            //进度条倒计时开始
+            progressBar1.Value = 60;
+            timer1.Enabled = true;
+        }
+
+        private void NextCal()
+        {
             textBox1.Text = "";
             textBox1.Select();
             textBox1.Focus();
+            label5.Text = "☺";
+            
             Random random = new Random();
             int firstNum = random.Next(100);
             label1.Text = firstNum.ToString();
-            int secondNum = random.Next(100);
+            int secondNum = random.Next(99) + 1;
             label3.Text = secondNum.ToString();
             string strAdd = "＋";
             string strMin = "－";
@@ -135,9 +146,10 @@ namespace AutoScore
 
         private void label5_Click(object sender, EventArgs e)
         {
-            openToolStripMenuItem_Click(sender, e);
-            label5.Text = "☺";
             _hasBeenInited = true;
+            StartGame();
+            NextCal();
+            label5.Text = "☺";
         }
 
         private void label5_MouseDown(object sender, MouseEventArgs e)
@@ -174,11 +186,33 @@ namespace AutoScore
             }
             else
             {
+                _score++;
                 label5.Text = "☻";
+                if (easyToolStripMenuItem.Checked)
+                {
+                    if (progressBar1.Value <= progressBar1.Maximum - 5)
+                        progressBar1.Value += 5;
+                    else
+                        progressBar1.Value = progressBar1.Maximum;
+                }
+                else if (middleToolStripMenuItem.Checked)
+                {
+                    if (progressBar1.Value <= progressBar1.Maximum - 3)
+                        progressBar1.Value += 3;
+                    else
+                        progressBar1.Value = progressBar1.Maximum;
+                }
+                else
+                {
+                    if (progressBar1.Value <= progressBar1.Maximum - 1)
+                        progressBar1.Value += 1;
+                    else
+                        progressBar1.Value = progressBar1.Maximum;
+                }
             }
             Application.DoEvents();
             System.Threading.Thread.Sleep(100);
-            label5_Click(sender, e);
+            NextCal();
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -187,6 +221,32 @@ namespace AutoScore
             {
                 button1_Click(sender, e);
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (progressBar1.Value == 0)
+            {
+                timer1.Enabled = false;
+                if (MessageBox.Show("Your score is " + _score + "! Again?", "OK!",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    openToolStripMenuItem_Click(sender, e);
+                }
+                else
+                {
+                    System.Environment.Exit(0);
+                }
+            }
+            else
+            {
+                progressBar1.Value--;
+            }
+    }
+
+        private void MyForm_Load(object sender, EventArgs e)
+        {
+            easyToolStripMenuItem.Checked = true;
         }
     }
 }
