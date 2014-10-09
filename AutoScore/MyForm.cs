@@ -180,5 +180,13 @@ namespace AutoScore
             System.Threading.Thread.Sleep(100);
             label5_Click(sender, e);
         }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+            {
+                button1_Click(sender, e);
+            }
+        }
     }
 }
