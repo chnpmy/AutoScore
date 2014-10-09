@@ -288,7 +288,9 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "MyForm";
             this.Text = "AutoScore";
             this.Load += new System.EventHandler(this.label5_Click);

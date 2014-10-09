@@ -147,6 +147,7 @@ namespace AutoScore
 
         private void label5_MouseLeave(object sender, EventArgs e)
         {
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -158,7 +159,15 @@ namespace AutoScore
         {
             if (!_hasBeenInited)
                 return;
-            int answer = Int32.Parse(textBox1.Text);
+            int answer = -1;
+            try
+            {
+                answer = Int32.Parse(textBox1.Text);
+            }
+            catch (System.Exception exception)
+            {
+                
+            }
             if (_answer != answer)
             {
                 label5.Text = "☹";
