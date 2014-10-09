@@ -16,6 +16,7 @@ namespace AutoScore
     {
         private static int _answer = -1;
         private static bool _hasBeenInited = false;
+
         public MyForm()
         {
             InitializeComponent();
@@ -96,6 +97,9 @@ namespace AutoScore
 
         private void StartGame()
         {
+            textBox1.Text = "";
+            textBox1.Select();
+            textBox1.Focus();
             Random random = new Random();
             int firstNum = random.Next(100);
             label1.Text = firstNum.ToString();
