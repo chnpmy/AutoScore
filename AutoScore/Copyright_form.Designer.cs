@@ -38,7 +38,8 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(260, 69);
             this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "Designed by Mingyuan Pei, 2014.";
+            this.textBox1.Text = "Designed by Mingyuan Pei, 2014.\r\nThe source code is on https://www.github.com/chn" +
+    "pmy/AutoScore/.";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 

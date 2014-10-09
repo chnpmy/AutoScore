@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AutoScore.Properties;
 
 namespace AutoScore
 {
@@ -18,11 +19,6 @@ namespace AutoScore
         public MyForm()
         {
             InitializeComponent();
-        }
-
-        private void MyForm_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -152,6 +148,24 @@ namespace AutoScore
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!_hasBeenInited)
+                return;
+            int answer = Int32.Parse(textBox1.Text);
+            if (_answer != answer)
+            {
+                label5.Text = "☹";
+            }
+            else
+            {
+                label5.Text = "☻";
+            }
+            Application.DoEvents();
+            System.Threading.Thread.Sleep(100);
+            label5_Click(sender, e);
         }
     }
 }
