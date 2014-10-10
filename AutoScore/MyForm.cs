@@ -100,7 +100,13 @@ namespace AutoScore
         {
             _score = 0;
             //进度条倒计时开始
-            progressBar1.Value = 60;
+            if (sToolStripMenuItem.Checked)
+                progressBar1.Maximum = 60;
+            else if (sToolStripMenuItem1.Checked)
+                progressBar1.Maximum = 30;
+            else
+                progressBar1.Maximum = 10;
+            progressBar1.Value = progressBar1.Maximum;
             timer1.Enabled = true;
         }
 
@@ -247,12 +253,36 @@ namespace AutoScore
         private void MyForm_Load(object sender, EventArgs e)
         {
             easyToolStripMenuItem.Checked = true;
+            sToolStripMenuItem.Checked = true;
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Help_form f = new Help_form();
             f.Show();
+        }
+
+        private void sToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SelectTime(sender);
+        }
+
+        void SelectTime(object sender)
+        {
+            sToolStripMenuItem.Checked = false;
+            sToolStripMenuItem1.Checked = false;
+            sToolStripMenuItem2.Checked = false;
+            ((ToolStripMenuItem) sender).Checked = true;
+        }
+
+        private void sToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SelectTime(sender);
+        }
+
+        private void sToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            SelectTime(sender);
         }
     }
 }

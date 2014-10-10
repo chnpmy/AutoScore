@@ -309,18 +309,21 @@
             this.sToolStripMenuItem.Name = "sToolStripMenuItem";
             this.sToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.sToolStripMenuItem.Text = "60s";
+            this.sToolStripMenuItem.Click += new System.EventHandler(this.sToolStripMenuItem_Click);
             // 
             // sToolStripMenuItem1
             // 
             this.sToolStripMenuItem1.Name = "sToolStripMenuItem1";
             this.sToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.sToolStripMenuItem1.Text = "30s";
+            this.sToolStripMenuItem1.Click += new System.EventHandler(this.sToolStripMenuItem1_Click);
             // 
             // sToolStripMenuItem2
             // 
             this.sToolStripMenuItem2.Name = "sToolStripMenuItem2";
             this.sToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.sToolStripMenuItem2.Text = "10s";
+            this.sToolStripMenuItem2.Click += new System.EventHandler(this.sToolStripMenuItem2_Click);
             // 
             // MyForm
             // 
