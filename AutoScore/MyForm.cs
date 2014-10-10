@@ -248,5 +248,11 @@ namespace AutoScore
         {
             easyToolStripMenuItem.Checked = true;
         }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Help_form f = new Help_form();
+            f.Show();
+        }
     }
 }
