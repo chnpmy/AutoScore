@@ -29,24 +29,24 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Help_form));
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblHelp = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
+            // lblHelp
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(329, 156);
-            this.label1.TabIndex = 0;
-            this.label1.Text = resources.GetString("label1.Text");
+            this.lblHelp.AutoSize = true;
+            this.lblHelp.Location = new System.Drawing.Point(12, 22);
+            this.lblHelp.Name = "lblHelp";
+            this.lblHelp.Size = new System.Drawing.Size(329, 156);
+            this.lblHelp.TabIndex = 0;
+            this.lblHelp.Text = resources.GetString("lblHelp.Text");
             // 
             // Help_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(345, 261);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblHelp);
             this.Name = "Help_form";
             this.Text = "Help_form";
             this.ResumeLayout(false);
@@ -56,6 +56,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblHelp;
     }
 }

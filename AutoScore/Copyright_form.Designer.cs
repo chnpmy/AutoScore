@@ -28,27 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblCopyright = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // lblCopyright
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 12);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(260, 69);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "Designed by Mingyuan Pei, 2014.\r\nThe source code is on https://www.github.com/chn" +
-    "pmy/AutoScore/.";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.lblCopyright.AutoSize = true;
+            this.lblCopyright.Location = new System.Drawing.Point(12, 9);
+            this.lblCopyright.Name = "lblCopyright";
+            this.lblCopyright.Size = new System.Drawing.Size(293, 24);
+            this.lblCopyright.TabIndex = 0;
+            this.lblCopyright.Text = "Designed by Mingyuan Pei, 2014.\r\nCode : https://www.github.com/chnpmy/AutoScore/." +
+    "";
             // 
             // Copyright_form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(317, 91);
+            this.Controls.Add(this.lblCopyright);
             this.Name = "Copyright_form";
             this.Text = "Copyright_form";
             this.ResumeLayout(false);
@@ -58,7 +56,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label lblCopyright;
+
 
     }
 }

@@ -1,22 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using AutoScore.Properties;
 
 namespace AutoScore
 {
     public partial class MyForm : Form
     {
-        private static int _answer = -1;
-        private static bool _hasBeenInited = false;
-        private static int _score = 0;
+        private static int _answer = -1;    //答案
+        private static bool _hasBeenInited = false; //是否初始化的标志，没什么大用
+        private static int _score = 0;  //玩家的分数
 
         public MyForm()
         {
@@ -63,6 +54,7 @@ namespace AutoScore
             SelectDifficulyLevel(sender);
         }
 
+        //使用这种写法以达到在n个菜单项中选一个的效果
         private void SelectDifficulyLevel(object sender)
         {
             easyToolStripMenuItem.Checked = false;
@@ -100,28 +92,29 @@ namespace AutoScore
         {
             _score = 0;
             //进度条倒计时开始
-            if (sToolStripMenuItem.Checked)
-                progressBar1.Maximum = 60;
-            else if (sToolStripMenuItem1.Checked)
-                progressBar1.Maximum = 30;
+            if (sixtyToolStripMenuItem.Checked)
+                mainProgressBar.Maximum = 60;
+            else if (ThirtyToolStripMenuItem.Checked)
+                mainProgressBar.Maximum = 30;
             else
-                progressBar1.Maximum = 10;
-            progressBar1.Value = progressBar1.Maximum;
-            timer1.Enabled = true;
+                mainProgressBar.Maximum = 10;
+            mainProgressBar.Value = mainProgressBar.Maximum;
+            progressBarTimer.Enabled = true;
         }
 
+        //生成下一题
         private void NextCal()
         {
-            textBox1.Text = "";
-            textBox1.Select();
-            textBox1.Focus();
-            label5.Text = "☺";
+            txtAnswer.Text = "";
+            txtAnswer.Select();
+            txtAnswer.Focus();
+            lblEmotion.Text = "☺";
             
             Random random = new Random();
             int firstNum = random.Next(100);
-            label1.Text = firstNum.ToString();
-            int secondNum = random.Next(99) + 1;
-            label3.Text = secondNum.ToString();
+            lblFirstNum.Text = firstNum.ToString();
+            int secondNum = random.Next(99) + 1;//除法要注意除数不为0
+            lblSecondNum.Text = secondNum.ToString();
             string strAdd = "＋";
             string strMin = "－";
             string strMul = "×";
@@ -131,19 +124,19 @@ namespace AutoScore
             switch (operatorChoice)
             {
                 case 0:
-                    label2.Text = strAdd;
+                    lblOperator.Text = strAdd;
                     answer = firstNum + secondNum;
                     break;
                 case 1:
-                    label2.Text = strMin;
+                    lblOperator.Text = strMin;
                     answer = firstNum - secondNum;
                     break;
                 case 2:
-                    label2.Text = strMul;
+                    lblOperator.Text = strMul;
                     answer = firstNum * secondNum;
                     break;
                 case 3:
-                    label2.Text = strDvi;
+                    lblOperator.Text = strDvi;
                     answer = firstNum / secondNum;
                     break;
             }
@@ -155,12 +148,12 @@ namespace AutoScore
             _hasBeenInited = true;
             StartGame();
             NextCal();
-            label5.Text = "☺";
+            lblEmotion.Text = "☺";
         }
 
         private void label5_MouseDown(object sender, MouseEventArgs e)
         {
-            label5.Text = "☻";
+            lblEmotion.Text = "☻";
         }
 
         private void label5_MouseLeave(object sender, EventArgs e)
@@ -173,6 +166,7 @@ namespace AutoScore
 
         }
 
+        //这个函数主要做的是验证答案的事情
         private void button1_Click(object sender, EventArgs e)
         {
             if (!_hasBeenInited)
@@ -180,7 +174,7 @@ namespace AutoScore
             int answer = -1;
             try
             {
-                answer = Int32.Parse(textBox1.Text);
+                answer = Int32.Parse(txtAnswer.Text);
             }
             catch (System.Exception exception)
             {
@@ -188,41 +182,44 @@ namespace AutoScore
             }
             if (_answer != answer)
             {
-                label5.Text = "☹";
+                lblEmotion.Text = "☹";
             }
             else
             {
+                //每答对一题加1分
                 _score++;
-                label5.Text = "☻";
+                lblEmotion.Text = "☻";
+                //Easy、Middle、hard区别在于每答对一题分别加时5s、3s、1s
                 if (easyToolStripMenuItem.Checked)
                 {
-                    if (progressBar1.Value <= progressBar1.Maximum - 5)
-                        progressBar1.Value += 5;
+                    if (mainProgressBar.Value <= mainProgressBar.Maximum - 5)
+                        mainProgressBar.Value += 5;
                     else
-                        progressBar1.Value = progressBar1.Maximum;
+                        mainProgressBar.Value = mainProgressBar.Maximum;
                 }
                 else if (middleToolStripMenuItem.Checked)
                 {
-                    if (progressBar1.Value <= progressBar1.Maximum - 3)
-                        progressBar1.Value += 3;
+                    if (mainProgressBar.Value <= mainProgressBar.Maximum - 3)
+                        mainProgressBar.Value += 3;
                     else
-                        progressBar1.Value = progressBar1.Maximum;
+                        mainProgressBar.Value = mainProgressBar.Maximum;
                 }
                 else
                 {
-                    if (progressBar1.Value <= progressBar1.Maximum - 1)
-                        progressBar1.Value += 1;
+                    if (mainProgressBar.Value <= mainProgressBar.Maximum - 1)
+                        mainProgressBar.Value += 1;
                     else
-                        progressBar1.Value = progressBar1.Maximum;
+                        mainProgressBar.Value = mainProgressBar.Maximum;
                 }
             }
-            Application.DoEvents();
+            Application.DoEvents();                                 //这一句真的是非常的重要啊，否则后边的Sleep函数效果有问题
             System.Threading.Thread.Sleep(100);
             NextCal();
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //设置答案框里的回车键功能
             if (e.KeyChar == '\r')
             {
                 button1_Click(sender, e);
@@ -231,9 +228,11 @@ namespace AutoScore
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (progressBar1.Value == 0)
+
+            //计时函数，要注意判断是否越界
+            if (mainProgressBar.Value == 0)
             {
-                timer1.Enabled = false;
+                progressBarTimer.Enabled = false;
                 if (MessageBox.Show("Your score is " + _score + "! Again?", "OK!",
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
@@ -246,14 +245,14 @@ namespace AutoScore
             }
             else
             {
-                progressBar1.Value--;
+                mainProgressBar.Value--;
             }
     }
 
         private void MyForm_Load(object sender, EventArgs e)
         {
             easyToolStripMenuItem.Checked = true;
-            sToolStripMenuItem.Checked = true;
+            sixtyToolStripMenuItem.Checked = true;
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -269,9 +268,9 @@ namespace AutoScore
 
         void SelectTime(object sender)
         {
-            sToolStripMenuItem.Checked = false;
-            sToolStripMenuItem1.Checked = false;
-            sToolStripMenuItem2.Checked = false;
+            sixtyToolStripMenuItem.Checked = false;
+            ThirtyToolStripMenuItem.Checked = false;
+            tenToolStripMenuItem.Checked = false;
             ((ToolStripMenuItem) sender).Checked = true;
         }
 
